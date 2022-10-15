@@ -1,17 +1,24 @@
 import "../styles/globals.css";
 import { MoralisProvider } from "react-moralis";
 import Header from "../components/Header";
+import { NotificationProvider } from "web3uikit";
+import Head from "next/head";
+
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      {/* <Header /> */}
-      <MoralisProvider
-        appId="I0XpcQBbymHEplzHTSyfbh5Jaxu7SZo6knM7u7rz"
-        serverUrl="https://h2gwyqmirzrq.grandmoralis.com:2053/server"
-      >
-        <Component {...pageProps} />
+    <div>
+      <Head>
+        <title>NFT Marketplace</title>
+        <meta name="description" content="NFT Marketplace" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <MoralisProvider appId="jjj" serverUrl="jj">
+        <NotificationProvider>
+          <Header />
+          <Component {...pageProps} />
+        </NotificationProvider>
       </MoralisProvider>
-    </>
+    </div>
   );
 }
 

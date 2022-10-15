@@ -8,6 +8,7 @@ export default function Home() {
     <div className={styles.container}>
       <nav>
         <Link href="/">Nft Marketplace</Link>
+        <Link href="/sell-nft">Sell Nft</Link>
       </nav>
     </div>
   );
