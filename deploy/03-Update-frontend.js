@@ -13,20 +13,20 @@ module.exports = async () => {
   }
 };
 
-let nftAddressLocation = "../client/constants/ConttractAddresses.json";
-let basicAbiLocation = "../client/constants/ConttractAddresses.json";
-let nftMarketplaceAbiLocation = "../client/constants/abiAdreses.json";
+let nftAddressLocation = "./client/constants/ConttractAddresses.json";
+let basicAbiLocation = "./client/constants/BasicNft.json";
+let nftMarketplaceAbiLocation = "./client/constants/NftMarketplace.json";
 
 const updateAbi = async () => {
   const nftMarketPlace = await ethers.getContract("NftMarketplace");
   const basicNft = await ethers.getContract("BasicNft");
 
-  fs.writeSync(
+  fs.writeFileSync(
     nftMarketplaceAbiLocation,
     nftMarketPlace.interface.format(ethers.utils.FormatTypes.json)
   );
 
-  fs.writeSync(
+  fs.writeFileSync(
     basicAbiLocation,
     basicNft.interface.format(ethers.utils.FormatTypes.json)
   );
@@ -40,19 +40,21 @@ const updateContractAddress = async () => {
   // if not push
   const chainId = network.config.chainId.toString();
   const nftMarketPlace = await ethers.getContract("NftMarketplace");
+  console.log("Writing to files");
   const files = JSON.parse(fs.readFileSync(nftAddressLocation, "utf8"));
 
   if (chainId in files) {
     if (!files[chainId]["NftMarketplace"].includes(nftMarketPlace.address)) {
       files[chainId]["NftMarketplace"].push(nftMarketPlace.address);
     } else {
+      console.log("Creating new ChainId");
       files[chainId] = {
         NftMarketplace: [nftMarketPlace.address],
       };
     }
   }
-
-  fs.writeFileSync(nftAddressLocation, JSON.stringify(nftMarketPlace));
+  console.log(JSON.stringify(files));
+  fs.writeFileSync(nftAddressLocation, JSON.stringify(files));
 };
 
 module.exports.tags = ["all", "update"];
