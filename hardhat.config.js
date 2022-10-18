@@ -7,9 +7,10 @@ require("solidity-coverage");
 require("hardhat-deploy");
 
 const PRIVATE_KEY =
-  "de9be858da4a475276426320d5e9262ecfc3ba460bfac56360bfa6c4c28b4ee0";
-const GEORLI =
+  "3a4f97ecc0098d65c9b03368035ef10edcb13e5de4740556b6c18b726d585256";
+const GOERLI =
   "https://eth-goerli.g.alchemy.com/v2/Gif1boH6DiB6XCfP1v_q1YuF3-YxvMzO";
+const ETHERSCAN_API_KEY = "95GKUEVKANAKHD1J994RT2Z3415D4UI6ZY";
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -17,9 +18,12 @@ module.exports = {
     hardhat: {
       chainId: 31337,
     },
-    Georli: {
+    localhost: {
+      chainId: 31337,
+    },
+    goerli: {
       accounts: [PRIVATE_KEY],
-      url: GEORLI,
+      url: GOERLI,
       chainId: 5,
       blockConfirmations: 6,
     },
@@ -36,6 +40,9 @@ module.exports = {
         version: "0.4.19",
       },
     ],
+  },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
   },
   gasReporter: {
     currency: "USD",
